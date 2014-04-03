@@ -1,0 +1,16 @@
+﻿@using System.Web.Mvc.Html;
+@{
+    ViewBag.Title = "Change debugger's role:";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("DoChangeRoles","Home")) {
+    
+    @Html.Label("User name:")
+    @Html.TextBox("UserName")
+    @Html.Label("Роля:")
+    @Html.TextBox("Role")
+    <br/>
+    <input type="submit" value="Change" />
+}

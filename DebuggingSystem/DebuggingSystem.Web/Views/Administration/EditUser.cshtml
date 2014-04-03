@@ -1,0 +1,32 @@
+﻿@model DebuggingSystem.Web.ViewModels.EditUserViewModel
+
+<h2>Edit user, @Model.UserName</h2>
+
+@using (Html.BeginForm("DoEditUser", "Administration")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    @Html.Hidden("UserId", Model.UserId)
+    <fieldset>
+        <legend>Debugger Info</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.FullName)
+
+                @Html.EditorFor(m => m.FullName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Email)
+
+                @Html.EditorFor(m => m.Email)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.PhoneNumber)
+                @Html.EditorFor(m => m.PhoneNumber)
+            </li>
+        </ol>
+        <input type="submit" value="Edit" />
+    </fieldset>
+}
+
+<a href="DeleteUser/@Model.UserId">Delete debugger</a>

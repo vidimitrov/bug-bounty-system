@@ -1,0 +1,26 @@
+﻿@model DebuggingSystem.Web.ViewModels.AddBugViewModel
+<h2>Add new bug to @ViewBag.ProjectName</h2>
+
+@using (Html.BeginForm("DoAddBug", "Projects")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    @Html.Hidden("ProjectName", (object)ViewBag.ProjectName.ToString())
+    <fieldset>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Description)
+                @Html.Kendo().Editor().Name("Description")
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Priority)
+
+                @(Html.Kendo().DropDownListFor(m => m.Priority)
+                .Name("Priority")
+                .BindTo(new string[] { "Critical", "High", "Normal", "Low"})
+                )
+            </li>
+        </ol>
+        <input type="submit" value="Add" />
+    </fieldset>
+}

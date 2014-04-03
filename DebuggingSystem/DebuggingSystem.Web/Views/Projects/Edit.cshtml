@@ -1,0 +1,37 @@
+﻿@model DebuggingSystem.Web.ViewModels.EditBugViewModel
+
+<h2>Edit bug: #@Model.BugId</h2>
+
+@using (Html.BeginForm("DoEdit", "Projects")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    @Html.Hidden("BugId", Model.BugId)
+    <fieldset>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Status)
+
+                @(Html.Kendo().DropDownListFor(m => m.Status)
+                .Name("Status")
+                .BindTo(new string[] { "New", "In Progress", "Fixed", "Closed"})
+                .Value(Model.Status)
+                )
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Priority)
+
+                @(Html.Kendo().DropDownListFor(m => m.Priority)
+                .Name("Priority")
+                .BindTo(new string[] { "Critical", "High", "Normal", "Low"})
+                .Value(Model.Priority)
+                )
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Description)
+                @Html.Kendo().Editor().Name("Description").Value(Model.Description)
+            </li>
+        </ol>
+        <input type="submit" value="Edit" />
+    </fieldset>
+}

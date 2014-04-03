@@ -1,0 +1,25 @@
+﻿@model IEnumerable<DebuggingSystem.Web.ViewModels.ProjectViewModel>
+
+@{
+    Layout = null;
+}
+
+@if(WebSecurity.IsAuthenticated)
+{
+    using(@Html.BeginForm("ViewProject", "Projects"))
+    {
+    <div class="centered-section">
+    <label for="projects" class="float-left home-label">Choose project:</label>
+       @(Html.Kendo().DropDownList()
+             .Name("projectDropDownList")
+             .DataTextField("Name")
+             .DataValueField("ProjectId")
+             .BindTo(Model)
+             .SelectedIndex(0)
+             .OptionLabel("---Project name---")
+        )
+        <input type="submit" class="float-right choose-input" value="Choose" />
+
+    </div>
+    }
+}

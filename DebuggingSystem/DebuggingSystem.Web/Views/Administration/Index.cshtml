@@ -1,0 +1,42 @@
+﻿@model DebuggingSystem.Web.ViewModels.ProjectsDebuggersViewModel
+
+
+@using(Html.BeginForm("EditUser", "Administration"))
+    {
+    <div class="forEditUser-section">
+    <label for="projects" class="float-left home-label">Edit debugger's information:</label><br />
+       @(Html.Kendo().DropDownList()
+             .Name("debuggerDropDownList")
+             .DataTextField("UserName")
+             .DataValueField("UserId")
+             .BindTo(Model.Debuggers)
+             .SelectedIndex(0)
+             .OptionLabel("---Debugger name---")
+        )
+        <input type="submit" class="float-right choose-input" value="Choose" />
+
+    </div>
+    }
+
+@using(Html.BeginForm("EditProject", "Administration"))
+    {
+    <div class="forEditProject-section">
+    <label for="projects" class="float-left home-label">Edit project's information:</label><br />
+       @(Html.Kendo().DropDownList()
+             .Name("editProjectDropDownList")
+             .DataTextField("Name")
+             .DataValueField("ProjectId")
+             .BindTo(Model.Projects)
+             .SelectedIndex(0)
+             .OptionLabel("---Project name---")
+        )
+        <input type="submit" class="float-right choose-input" value="Choose" />
+
+    </div>
+    }
+
+<div>
+       <a href="Administration/CreateProject">Add new project</a><br />
+       <a href="Administration/AddUser">Add new debugger</a><br />
+       <a href="Administration/ChangeRoles">Change debugger's role</a>
+</div>

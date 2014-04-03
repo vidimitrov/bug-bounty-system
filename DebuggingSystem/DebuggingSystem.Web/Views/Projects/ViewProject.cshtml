@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DebuggingSystem.Web.ViewModels.ProjectBugsViewModel>
+
+@if(Model.Count() > 0)
+{
+<h1>Project information:</h1>
+
+<h2>Name:</h2> @Model.First().ProjectName
+<h2>Description:</h2> @Model.First().ProjectDescription
+@(Html.Kendo().Grid(Model)    
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.DebuggerName);
+        columns.Bound(p => p.Priority);
+        columns.Bound(p => p.Date).Format("{0:hh:mm:ss - MM/dd/yyyy}");
+        columns.Template(@<text></text>).ClientTemplate("<a href='" + Url.Action("Edit", "Projects") + "/#=BugId#'>Edit</a>");
+        columns.Template(@<text></text>).ClientTemplate("<a href='" + Url.Action("Delete", "Projects") + "/#=BugId#'>Delete</a>");
+    })
+            .Pageable()
+            .Sortable()
+            .DataSource(dataSource => dataSource
+                 .Ajax()
+                 .Model(model => model.Id(p => p.BugId))
+                 .Read(read => read.Action("ProjectBugs_Read", "Projects")
+                 .Data("additionalData"))
+                 .PageSize(20)
+             )
+        )
+}
+else
+{
+    <h2>There are no bugs for this project!</h2>
+    <h3>Add first bug... ViewBag.ProjectName</h3>
+}
+@using (Html.BeginForm("AddBug", "Projects"))
+{
+   @Html.Hidden("projectName", @Model.First().ProjectName)
+    <input type="submit" value="Add new" />
+}
+
+@if(Model.Any())
+{
+<script>
+    function additionalData() {
+        return {
+            projectId: @Model.First().ProjectId
+        };
+    }
+</script>
+}

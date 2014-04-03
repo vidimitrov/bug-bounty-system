@@ -1,0 +1,22 @@
+﻿@model IEnumerable<DebuggingSystem.Web.ViewModels.CheckActiveBugsViewModel>
+
+<h2>List of all active bugs:</h2>
+
+@(Html.Kendo().Grid(Model)    
+    .Name("ActiveBugsGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Description);
+        columns.Bound(p => p.Priority);
+        columns.Bound(p => p.DebuggerName);
+        columns.Bound(p => p.ProjectName);
+        columns.Bound(p => p.Status);
+    })
+        .Pageable()
+        .Sortable()
+        .DataSource(dataSource => dataSource
+             .Ajax()
+             .Read(read => read.Action("ActiveBugs_Read", "Check"))
+             .PageSize(15)
+         )
+    )   

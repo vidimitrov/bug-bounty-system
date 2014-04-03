@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=152368
+  -->
+<configuration>
+  <system.web>
+    <membership defaultProvider="MembershipProviderAdapter">
+      <providers>
+        <!-- NOTE: Change userRepositoryType to whatever the implementation of IUserRepository is -->
+        <add name="MembershipProviderAdapter"
+             type="MembershipAdapter.MembershipProviderAdapter, MembershipAdapter"
+             userRepositoryType="$rootnamespace$.Samples.SampleUserRepository, $rootnamespace$"
+             enablePasswordRetrieval="false"
+             enablePasswordReset="true"
+             requiresQuestionAndAnswer="false"
+             requiresUniqueEmail="false"
+             maxInvalidPasswordAttempts="5"
+             minRequiredPasswordLength="6"
+             minRequiredNonalphanumericCharacters="0"
+             passwordAttemptWindow="10"
+             applicationName="$rootnamespace$" />
+      </providers>
+    </membership>
+    <roleManager defaultProvider="RoleProviderAdapter" enabled="false">
+      <providers>
+        <!-- NOTE: Change roleRepositoryType to whatever the implementation of IRoleRepository is -->
+        <add name="RoleProviderAdapter" 
+             type="MembershipAdapter.RoleProviderAdapter, MembershipAdapter"
+             roleRepositoryType="$rootnamespace$.Samples.SampleRoleRepository, $rootnamespace$"
+             applicationName="$rootnamespace$" />
+      </providers>
+    </roleManager>
+  </system.web>
+</configuration>

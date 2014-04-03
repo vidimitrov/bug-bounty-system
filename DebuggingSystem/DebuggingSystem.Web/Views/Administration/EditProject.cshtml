@@ -1,0 +1,34 @@
+﻿@model DebuggingSystem.Web.ViewModels.EditProjectViewModel
+
+<h2>Edit project: @Model.Name</h2>
+
+@using (Html.BeginForm("DoEditProject", "Administration"))
+{ 
+    @Html.ValidationSummary(true)
+
+    @Html.Hidden("ProjectId", Model.ProjectId)
+    <fieldset>
+        <legend>Project</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+        </div>
+
+        <p>
+            <input type="submit" value="Edit" />
+        </p>
+    </fieldset>
+}
+
+
+<a href="DeleteProject/@Model.ProjectId">Delete project</a>

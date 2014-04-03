@@ -1,0 +1,25 @@
+﻿@model IEnumerable<DebuggingSystem.Web.ViewModels.CheckDebuggerViewModel>
+
+<h2>List with all debuggers:</h2>
+
+
+@(Html.Kendo().Grid(Model)    
+    .Name("DebuggersGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(d => d.FullName);
+        columns.Bound(d => d.Email);
+        columns.Bound(d => d.PhoneNumber);
+        columns.Bound(d => d.CountOfProjects);
+        columns.Bound(d => d.CountOfBugs);
+        columns.Bound(d => d.LastActivity).Format("{0:hh:mm:ss - MM/dd/yyyy}");
+        columns.Bound(d => d.LastAction);
+    })
+        .Pageable()
+        .Sortable()
+        .DataSource(dataSource => dataSource
+             .Ajax()
+             .Read(read => read.Action("Debuggers_Read", "Check"))
+             .PageSize(15)
+         )
+    )   
